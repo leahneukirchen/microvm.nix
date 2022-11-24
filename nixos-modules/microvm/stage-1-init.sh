@@ -1,9 +1,7 @@
 #! @shell@
 
-ln -sfn /proc/self/fd /dev/fd
-klog() { while IFS= read -r line; do echo "<7>$1 $line" >/dev/kmsg; echo "$1 $line"; done; }
-exec 2> >(klog '::')
-exec  > >(klog '>>')
+exec 2> /dev/kmsg
+exec  > /dev/kmsg
 set -v
 
 ##
