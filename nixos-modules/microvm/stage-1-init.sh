@@ -9,7 +9,7 @@ set -v
 
 targetRoot=/mnt-root
 console=hvc0
-verbose=
+verbose=1
 
 info() {
     if [[ -n "$verbose" ]]; then
