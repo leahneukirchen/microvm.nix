@@ -1,7 +1,6 @@
 #! @shell@
 
-exec 2> /dev/kmsg
-exec  > /dev/kmsg
+echo 1 > /dev/kmsg
 set -v
 
 ##
@@ -368,8 +367,7 @@ targetBin=$(dirname $stage2Init)/sw/bin
 cd $targetRoot
 mkdir mnt
 
-exec 2> /dev/console
-exec  > /dev/console
+echo 999 > /dev/kmsg
 
 pivot_root . mnt
 
