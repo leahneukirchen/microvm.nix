@@ -1,5 +1,6 @@
 #! @shell@
 
+ln -sfn /proc/self/fd /dev/fd
 klog() { while IFS= read -r line; do echo "<7>$1 $line" >/dev/kmsg; echo "$1 $line"; done; }
 exec 2> >(klog '::')
 exec  > >(klog '>>')
@@ -368,7 +369,12 @@ umount /etc
 targetBin=$(dirname $stage2Init)/sw/bin
 cd $targetRoot
 mkdir mnt
+
+exec 2> /dev/console
+exec  > /dev/console
+
 pivot_root . mnt
+
 exec $targetBin/env -i $targetBin/sh -c "$targetBin/umount /mnt; exec $stage2Init"
 
 fail # should never be reached
