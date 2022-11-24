@@ -1,5 +1,10 @@
 #! @shell@
 
+klog() { while IFS= read -r line; do echo "<7>$1 $line" >/dev/kmsg; echo "$1 $line"; done; }
+exec 2> >(klog '::')
+exec  > >(klog '>>')
+set -v
+
 ##
 # A stripped-down copy of nixos/modules/system/boot/stage-1-init.sh adapted for MicroVMs
 ##
